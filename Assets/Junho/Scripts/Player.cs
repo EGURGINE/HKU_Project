@@ -11,12 +11,13 @@ public class Player : MonoBehaviour
     private RaycastHit hit;
     [SerializeField] private float jumpDistance;
     [SerializeField] private float jumpPower;
-    private bool isJumped = false;
+    [SerializeField] private bool isJumped = false;
+    [SerializeField] private bool isColisionGround = false;
     void Update()
     {
         Move();
 
-        if (isJumped == true) return;
+        if (isJumped == false || isColisionGround == true) return;
         JumpCheck();
     }
 
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position, Vector2.down * jumpDistance, Color.blue);
         if (Physics.Raycast(transform.position, Vector2.down, out hit, jumpDistance))
         {
-            if (hit.collider.CompareTag("Ground") && isJumped == false)
+            if (hit.collider.CompareTag("Ground"))
                 isJumped = false;
         }
     }
@@ -33,11 +34,27 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * spd * Time.deltaTime;
         transform.Translate(new Vector3(x,0,0));
-        if (Input.GetKeyDown(KeyCode.Space) && isJumped == false)
+        if (Input.GetKeyDown(KeyCode.Space) && isJumped == false && isColisionGround == true)
         {
             isJumped = true;
             rb.AddForce(new Vector2(x * 0.9f , jumpPower), ForceMode.Impulse);
         }
-    }   
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isColisionGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isColisionGround = false;
+        }
+    }
 
 }

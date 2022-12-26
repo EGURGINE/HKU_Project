@@ -18,7 +18,7 @@ public class MainCameraMove : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             float y = Input.GetAxis("VerticalArrow");
-            transform.DOMove(target.position + new Vector3(0, y * 4, -10), 0.5f);
+            transform.DOMove(target.position + new Vector3(0, y * 6, -10), 0.5f);
             transform.DORotate(new Vector3(10 * y, 0, 0), 0.5f);
         }
         else
