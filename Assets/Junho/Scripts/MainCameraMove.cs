@@ -11,6 +11,7 @@ public class MainCameraMove : MonoBehaviour
     private void Update()
     {
         CameraMove();
+        CameraCheck();
     }
 
     private void CameraMove()
@@ -25,6 +26,18 @@ public class MainCameraMove : MonoBehaviour
         {
             transform.DOMove(target.transform.position + myTransform , 0.3f);
             transform.DORotate(Vector3.zero , 0.3f);
+
+        }
+    }
+    private void CameraCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            GameManager.Instance.SetIsCameraMoving(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            GameManager.Instance.SetIsCameraMoving(false);
 
         }
     }
