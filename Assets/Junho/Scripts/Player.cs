@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector3(x,0,0));
         if (Input.GetKeyDown(KeyCode.Space) && isJumped == false && isColisionGround == true)
         {
+            SoundManager.Instance.PlaySound(ESoundType.JUMP);
+
             isJumped = true;
             rb.AddForce(new Vector2(x * 0.9f , jumpPower), ForceMode.Impulse);
         }
