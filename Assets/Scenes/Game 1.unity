@@ -269,7 +269,7 @@ MonoBehaviour:
   spd: 10
   rb: {fileID: 112948855}
   jumpDistance: 2
-  jumpPower: 5
+  jumpPower: 8
   isJumped: 0
   isColisionGround: 0
 --- !u!65 &112948854
@@ -299,7 +299,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!23 &112948856
 MeshRenderer:
@@ -491,6 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObserverManager: {fileID: 1561027977}
   isCameraMoving: 0
+  isGameOver: 0
 --- !u!4 &726479532
 Transform:
   m_ObjectHideFlags: 0

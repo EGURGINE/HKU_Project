@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
 
     public bool isCameraMoving;
 
+    public bool isGameOver;
 
     public void SetIsCameraMoving(bool type)
     {

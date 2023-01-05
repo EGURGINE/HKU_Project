@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isColisionGround = false;
     void Update()
     {
+        if (GameManager.Instance.isGameOver == true) return;
         Move();
 
         if (isJumped == false || isColisionGround == true) return;

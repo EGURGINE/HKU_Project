@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class ObstacleVowel : MonoBehaviour
 {
@@ -72,7 +73,17 @@ public class ObstacleVowel : MonoBehaviour
 
     void Die()
     {
-        Time.timeScale = 0;
         Debug.Log("Die");
+        GameManager.Instance.isGameOver = true;
+        StartCoroutine(ReLoadScene());
+    }
+
+    IEnumerator ReLoadScene()
+    {
+        yield return new WaitForSeconds(1f);
+        print("load");
+        Time.timeScale = 1;
+
+        SceneManager.LoadScene("Game 1");
     }
 }
