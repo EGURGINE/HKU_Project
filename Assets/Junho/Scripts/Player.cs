@@ -34,9 +34,10 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * spd * Time.deltaTime;
         transform.Translate(new Vector3(x,0,0));
+        Camera.main.transform.position = transform.position - Vector3.forward * 10;
         if (Input.GetKeyDown(KeyCode.Space) && isJumped == false && isColisionGround == true)
         {
-            SoundManager.Instance.PlaySound(ESoundType.JUMP);
+            //SoundManager.Instance.PlaySound(ESoundType.JUMP);
 
             isJumped = true;
             rb.AddForce(new Vector2(x * 0.9f , jumpPower), ForceMode.Impulse);
