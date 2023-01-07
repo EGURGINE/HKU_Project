@@ -8,39 +8,54 @@ public class MainCameraMove : MonoBehaviour
     [SerializeField] private Transform target;
     private Vector3 myTransform = new Vector3(0, 1, -10);
 
+    [SerializeField] private bool isCameraMoving = false;
+
+    private float cnt = 8;
+    [SerializeField] private float coolTime;
     private void Update()
     {
-        CameraMove();
-        CameraCheck();
-    }
-
-    private void CameraMove()
-    {
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+        cnt += Time.deltaTime;
+        if (cnt > coolTime)
         {
-            float y = Input.GetAxis("VerticalArrow");
-            Camera.main.orthographic = false;
-            transform.DOMove(target.position + new Vector3(0, y * 6, -10), 0.5f);
-            transform.DORotate(new Vector3(10 * y, 0, 0), 0.5f);
+            CameraMove();
+        }
+
+        //카메라가 플레이어 따라가기
+        if (isCameraMoving)
+        {
+            transform.DOMove(target.position + new Vector3(0, 6, -10), 0.5f);
+            transform.DORotate(new Vector3(10, 0, 0), 0.5f);
         }
         else
         {
-            Camera.main.orthographic = true;
-            transform.DOMove(target.transform.position + myTransform , 0.3f);
-            transform.DORotate(Vector3.zero , 0.3f);
-
+            transform.DOMove(target.transform.position + myTransform, 0.3f);
+            transform.DORotate(Vector3.zero, 0.3f);
         }
     }
-    private void CameraCheck()
+   
+    private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.DownArrow))
+        
+    }
+    private IEnumerator ResetCameraMove()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameManager.Instance.SetIsCameraMoving(false);
+        Camera.main.orthographic = true;
+        isCameraMoving = false;
+    }
+    private void CameraMove()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             GameManager.Instance.SetIsCameraMoving(true);
-        }
-        else if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            GameManager.Instance.SetIsCameraMoving(false);
-
+            Camera.main.orthographic = false;
+            isCameraMoving = true;
+            transform.DORotate(new Vector3(10 , 0, 0), 0.5f).OnComplete(()=>
+            {
+                cnt = 0;
+                StartCoroutine(ResetCameraMove());
+            });
         }
     }
 }

@@ -17,31 +17,24 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.isGameOver == true) return;
         Move();
-
-        if (isJumped == false || isColisionGround == true) return;
-        JumpCheck();
-    }
-
-    private void JumpCheck()
-    {
-        Debug.DrawRay(transform.position, Vector2.down * jumpDistance, Color.blue);
-        if (Physics.Raycast(transform.position, Vector2.down, out hit, jumpDistance))
-        {
-            if (hit.collider.CompareTag("Ground"))
-                isJumped = false;
-        }
     }
     private void Move()
     {
         float x = Input.GetAxis("Horizontal") * spd * Time.deltaTime;
+
+
+        //이동
         transform.Translate(new Vector3(x,0,0));
-        Camera.main.transform.position = transform.position - Vector3.forward * 10;
-        if (Input.GetKeyDown(KeyCode.Space) && isJumped == false && isColisionGround == true)
+
+        
+
+        //점프
+        if (Input.GetKeyDown(KeyCode.Space) && isJumped == false)
         {
-            //SoundManager.Instance.PlaySound(ESoundType.JUMP);
+            SoundManager.Instance.PlaySound(ESoundType.JUMP);
 
             isJumped = true;
-            rb.AddForce(new Vector2(x * 0.9f , jumpPower), ForceMode.Impulse);
+            rb.AddForce(new Vector2(x, jumpPower), ForceMode.Impulse);
         }
     }
 
@@ -49,16 +42,7 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            isColisionGround = true;
+            isJumped = false;
         }
     }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            isColisionGround = false;
-        }
-    }
-
 }
