@@ -12,9 +12,12 @@ public class ObstacleVowel : MonoBehaviour
         Obstacle3,
         Obstacle4,
         Obstacle6,
+        ObstacleRange2,
+        ObstacleRange6,
     }
     public EObstacle eObstacle;
     [SerializeField] GameObject obstacle2;
+    [SerializeField] GameObject obstacleStop;
 
     void Start()
     {
@@ -36,23 +39,12 @@ public class ObstacleVowel : MonoBehaviour
         {
             switch (eObstacle)
             {
-                case EObstacle.Obstacle2:
-                    obstacle2.transform.DOLocalMoveY(1.5f, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
-                    {
-                        Die();
-                    });
+                case EObstacle.ObstacleRange2:
+                    obstacle2.transform.DOLocalMoveY(0.52f, 0.5f).SetEase(Ease.Linear);
                     break;
 
-                case EObstacle.Obstacle3:
-                    Die();
-                    break;
-
-                case EObstacle.Obstacle4:
-                    Die();
-                    break;
-
-                case EObstacle.Obstacle6:
-                    Die();
+                case EObstacle.ObstacleRange6:
+                    obstacleStop.transform.DOLocalMoveY(15, 0.5f).SetEase(Ease.Linear);
                     break;
             }
         }
@@ -64,6 +56,18 @@ public class ObstacleVowel : MonoBehaviour
         {
             switch (eObstacle)
             {
+                case EObstacle.Obstacle2:
+                    Die();
+                    break;
+
+                case EObstacle.Obstacle3:
+                    Die();
+                    break;
+
+                case EObstacle.Obstacle4:
+                    Die();
+                    break;
+
                 case EObstacle.Obstacle6:
                     Die();
                     break;
@@ -82,8 +86,8 @@ public class ObstacleVowel : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         print("load");
-        Time.timeScale = 1;
 
+        DOTween.KillAll();
         SceneManager.LoadScene("Game 1");
     }
 }
