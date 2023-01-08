@@ -63,7 +63,7 @@ public class ObstacleVowel : MonoBehaviour
             switch (eObstacle)
             {
                 case EObstacle.Obstacle2:
-                    player.transform.DOScaleY(0, 0.5f).SetEase(Ease.Linear);
+                    player.transform.DOScaleY(0, 1).SetEase(Ease.Linear);
                     Die();
                     break;
 
