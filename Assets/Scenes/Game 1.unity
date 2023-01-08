@@ -1143,22 +1143,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 871545872417372058, guid: f86574d2830207b41844b6716ea0fa53, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 871545872417372058, guid: f86574d2830207b41844b6716ea0fa53, type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 5292999249232552169, guid: f86574d2830207b41844b6716ea0fa53, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5292999249232552169, guid: f86574d2830207b41844b6716ea0fa53, type: 3}
-      propertyPath: m_TagString
-      value: Ground
-      objectReference: {fileID: 0}
     - target: {fileID: 6169462479596610252, guid: f86574d2830207b41844b6716ea0fa53, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -11465,6 +11449,7 @@ GameObject:
   - component: {fileID: 7065220453021700355}
   - component: {fileID: 3301510942796227125}
   - component: {fileID: 3898275908451669413}
+  - component: {fileID: 8508822332764610721}
   m_Layer: 0
   m_Name: Quad (2)
   m_TagString: Ground
@@ -23245,13 +23230,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3094970643005674194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.52829933, y: 0, z: 0}
+  m_LocalPosition: {x: 0.52829933, y: -0.14, z: 0}
   m_LocalScale: {x: 10.065347, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 590396447056225410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8508822332764610721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094970643005674194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbdd321e54a764945ac03feca350db1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
 --- !u!1 &8558890548853469039
 GameObject:
   m_ObjectHideFlags: 0
