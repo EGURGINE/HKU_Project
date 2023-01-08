@@ -14,6 +14,7 @@ public class ObstacleVowel : MonoBehaviour
         Obstacle6,
         ObstacleRange2,
         ObstacleRange6,
+        FallingOff,
     }
     public EObstacle eObstacle;
     [SerializeField] GameObject obstacle2;
@@ -45,6 +46,7 @@ public class ObstacleVowel : MonoBehaviour
 
                 case EObstacle.ObstacleRange6:
                     obstacleStop.transform.DOLocalMoveY(15, 0.5f).SetEase(Ease.Linear);
+                    Camera.main.DOOrthoSize(7, 0.5f);
                     break;
             }
         }
@@ -69,6 +71,10 @@ public class ObstacleVowel : MonoBehaviour
                     break;
 
                 case EObstacle.Obstacle6:
+                    Die();
+                    break;
+
+                case EObstacle.FallingOff:
                     Die();
                     break;
             }
