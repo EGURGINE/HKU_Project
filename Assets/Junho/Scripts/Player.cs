@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float spd;
     [SerializeField] private Rigidbody rb;
-
+    [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private RaycastHit hit;
@@ -21,9 +21,17 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * spd * Time.deltaTime;
 
-        if (x > 0) spriteRenderer.flipX = false;
-        else if(x < 0) spriteRenderer.flipX = true;
+        if (x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
 
+        if (x != 0) anim.SetBool("IsWalk",true);
+        else anim.SetBool("IsWalk",false);
         //ÀÌµ¿
         transform.Translate(new Vector3(x,0,0));
 
