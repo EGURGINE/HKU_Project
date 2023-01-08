@@ -25,6 +25,7 @@ public class SoundManager : Singleton<SoundManager>
         GameObject go = new GameObject(type.ToString());
         AudioSource sound = go.AddComponent<AudioSource>();
         sound.clip = sounds[((int)type)];
+        sound.volume = 0.3f;
         if (type == ESoundType.BGM) sound.loop = true;
         else
         {
