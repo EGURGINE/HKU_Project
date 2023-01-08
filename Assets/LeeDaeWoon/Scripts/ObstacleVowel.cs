@@ -15,6 +15,7 @@ public class ObstacleVowel : MonoBehaviour
         ObstacleRange2,
         ObstacleRange6,
         FallingOff,
+        Clear,
     }
     public EObstacle eObstacle;
     [SerializeField] GameObject obstacle2;
@@ -51,6 +52,10 @@ public class ObstacleVowel : MonoBehaviour
                 case EObstacle.ObstacleRange6:
                     obstacleStop.transform.DOLocalMoveY(15, 0.5f).SetEase(Ease.Linear);
                     Camera.main.DOOrthoSize(7, 0.5f);
+                    break;
+
+                case EObstacle.Clear:
+                    Clear();
                     break;
             }
         }
@@ -93,6 +98,20 @@ public class ObstacleVowel : MonoBehaviour
         Debug.Log("Die");
         GameManager.Instance.isGameOver = true;
         StartCoroutine(ReLoadScene());
+    }
+
+    void Clear()
+    {
+        Debug.Log("Clear");
+        Camera.main.DOOrthoSize(5, 0.5f);
+        StartCoroutine(GameClear());
+    }
+
+    IEnumerator GameClear()
+    {
+        yield return new WaitForSeconds(1);
+        DOTween.KillAll();
+        SceneManager.LoadScene("Clear");
     }
 
     IEnumerator ReLoadScene()
