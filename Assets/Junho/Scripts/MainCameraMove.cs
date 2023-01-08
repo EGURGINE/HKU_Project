@@ -11,12 +11,12 @@ public class MainCameraMove : MonoBehaviour
     private Vector3 myTransform = new Vector3(0, 1, -10);
 
     [SerializeField] private bool isCameraMoving = false;
-
+    private bool isUPBtn = false;
     private float cnt = 8;
     private float CNT
     {
         get { return cnt; }
-        set 
+        set
         {
 
             cnt = value;
@@ -35,19 +35,16 @@ public class MainCameraMove : MonoBehaviour
         //카메라가 플레이어 따라가기
         if (isCameraMoving)
         {
-            transform.DOMove(target.position + new Vector3(0, 6, -10), 0.5f);
-            transform.DORotate(new Vector3(10, 0, 0), 0.5f);
+            int upBtnCheck;
+            upBtnCheck = isUPBtn ? 1 : -1;
+            transform.DOMove(target.position + new Vector3(0, 6 * upBtnCheck, -10), 0.5f);
+            transform.DORotate(new Vector3(10 * upBtnCheck, 0, 0), 0.5f);
         }
         else
         {
             transform.DOMove(target.transform.position + myTransform, 0.3f);
             transform.DORotate(Vector3.zero, 0.3f);
         }
-    }
-   
-    private void FixedUpdate()
-    {
-        
     }
     private IEnumerator ResetCameraMove()
     {
@@ -60,11 +57,24 @@ public class MainCameraMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            isUPBtn = true;
             CNT = 0;
             GameManager.Instance.SetIsCameraMoving(true);
             Camera.main.orthographic = false;
             isCameraMoving = true;
-            transform.DORotate(new Vector3(10 , 0, 0), 0.5f).OnComplete(()=>
+            transform.DORotate(new Vector3(10, 0, 0), 0.5f).OnComplete(() =>
+           {
+               StartCoroutine(ResetCameraMove());
+           });
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            isUPBtn = false;
+            CNT = 0;
+            GameManager.Instance.SetIsCameraMoving(true);
+            Camera.main.orthographic = false;
+            isCameraMoving = true;
+            transform.DORotate(new Vector3(-6, 0, 0), 0.5f).OnComplete(() =>
             {
                 StartCoroutine(ResetCameraMove());
             });
