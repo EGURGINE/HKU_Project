@@ -575,6 +575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spd: 5
   rb: {fileID: 295925674}
+  anim: {fileID: 1793603709}
   spriteRenderer: {fileID: 1793603708}
   jumpPower: 8
   isJumped: 0
