@@ -7,12 +7,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float spd;
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private RaycastHit hit;
-    [SerializeField] private float jumpDistance;
     [SerializeField] private float jumpPower;
     [SerializeField] private bool isJumped = false;
-    [SerializeField] private bool isColisionGround = false;
     void Update()
     {
         if (GameManager.Instance.isGameOver == true) return;
@@ -22,6 +21,8 @@ public class Player : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * spd * Time.deltaTime;
 
+        if (x > 0) spriteRenderer.flipX = false;
+        else if(x < 0) spriteRenderer.flipX = true;
 
         //ÀÌµ¿
         transform.Translate(new Vector3(x,0,0));

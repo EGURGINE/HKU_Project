@@ -2,19 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class MainCameraMove : MonoBehaviour
 {
+    [SerializeField] private Image filled;
     [SerializeField] private Transform target;
     private Vector3 myTransform = new Vector3(0, 1, -10);
 
     [SerializeField] private bool isCameraMoving = false;
 
     private float cnt = 8;
+    private float CNT
+    {
+        get { return cnt; }
+        set 
+        {
+
+            cnt = value;
+            filled.fillAmount = cnt / coolTime;
+        }
+    }
     [SerializeField] private float coolTime;
     private void Update()
     {
-        cnt += Time.deltaTime;
+        CNT += Time.deltaTime;
         if (cnt > coolTime)
         {
             CameraMove();
@@ -48,12 +60,12 @@ public class MainCameraMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            CNT = 0;
             GameManager.Instance.SetIsCameraMoving(true);
             Camera.main.orthographic = false;
             isCameraMoving = true;
             transform.DORotate(new Vector3(10 , 0, 0), 0.5f).OnComplete(()=>
             {
-                cnt = 0;
                 StartCoroutine(ResetCameraMove());
             });
         }
