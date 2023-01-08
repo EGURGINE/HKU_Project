@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
         {
             SoundManager.Instance.PlaySound(ESoundType.JUMP);
 
-            isJumped = true;
             rb.AddForce(new Vector2(x, jumpPower), ForceMode.Impulse);
         }
     }
@@ -44,6 +43,14 @@ public class Player : MonoBehaviour
         if (collision.collider.CompareTag("Ground"))
         {
             isJumped = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isJumped = true;
         }
     }
 }
