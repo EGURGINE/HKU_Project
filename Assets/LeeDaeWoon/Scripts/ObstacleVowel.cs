@@ -20,8 +20,12 @@ public class ObstacleVowel : MonoBehaviour
     [SerializeField] GameObject obstacle2;
     [SerializeField] GameObject obstacleStop;
 
+    Player player;
+
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Player>();
+
         switch (eObstacle)
         {
             case EObstacle.Obstacle4:
@@ -59,6 +63,7 @@ public class ObstacleVowel : MonoBehaviour
             switch (eObstacle)
             {
                 case EObstacle.Obstacle2:
+                    player.transform.DOScaleY(0, 0.5f).SetEase(Ease.Linear);
                     Die();
                     break;
 
@@ -67,6 +72,8 @@ public class ObstacleVowel : MonoBehaviour
                     break;
 
                 case EObstacle.Obstacle4:
+                    transform.GetChild(0).gameObject.SetActive(false);
+                    transform.GetChild(1).gameObject.SetActive(true);
                     Die();
                     break;
 
